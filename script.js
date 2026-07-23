@@ -425,11 +425,11 @@ function isValidEmail(email) {
 }
 
 function populatePropertyDropdown() {
-    const select = document.getElementById('property');
+    const select = document.getElementById('propertyName');
     properties.forEach(property => {
         const option = document.createElement('option');
         option.value = property.id;
-        option.textContent = `${property.title} - ${property.price}`;
+        option.textContent = property.title;
         select.appendChild(option);
     });
 }
