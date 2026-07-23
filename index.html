@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Longshot Property Development | The Albers Building</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="Longshot.jpg" alt="Longshot Property Development">
+                <span class="brand-name">Longshot Property Development</span>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Longshot Property Development</h1>
+            <p>Restoring Historic Properties for a Modern Future</p>
+            <button class="btn btn-primary" onclick="document.getElementById('portfolio').scrollIntoView({behavior: 'smooth'})">View Our Portfolio</button>
+        </div>
+    </section>
+
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2>Property Showcase</h2>
+            <div class="properties-grid" id="propertiesGrid">
+                <!-- Properties will be loaded dynamically here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Property Modal -->
+    <div id="propertyModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-gallery">
+                    <img id="modalImage" src="" alt="Property">
+                    <div class="gallery-nav">
+                        <button class="gallery-btn prev" onclick="changeModalImage(-1)">❮</button>
+                        <button class="gallery-btn next" onclick="changeModalImage(1)">❯</button>
+                    </div>
+                </div>
+                <div class="modal-details">
+                    <h2 id="modalTitle"></h2>
+                    <div class="property-specs">
+                        <div class="spec">
+                            <span class="label">Property Type:</span>
+                            <span class="value" id="modalType"></span>
+                        </div>
+                        <div class="spec">
+                            <span class="label">Residential Units:</span>
+                            <span class="value" id="modalBeds"></span>
+                        </div>
+                        <div class="spec">
+                            <span class="label">Commercial Units:</span>
+                            <span class="value" id="modalBaths"></span>
+                        </div>
+                        <div class="spec">
+                            <span class="label">Total Units:</span>
+                            <span class="value" id="modalTotal"></span>
+                        </div>
+                    </div>
+                    <p id="modalDescription" class="property-description"></p>
+                    
+                    <!-- Residential Units Showcase -->
+                    <div class="property-units-section">
+                        <h3>Residential Units & Floorplans</h3>
+                        <p>Explore our beautifully designed residential units, each featuring modern finishes and premium amenities.</p>
+                        <div class="modal-units-grid" id="modalUnitsGrid">
+                            <!-- Units will be loaded dynamically here -->
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="scrollToContact()">Inquire About Leasing</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Unit Detail Modal -->
+    <div id="unitModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeUnitModal()">&times;</span>
+            <div class="modal-body">
+                <div class="modal-gallery">
+                    <img id="unitImage" src="" alt="Unit Floorplan">
+                </div>
+                <div class="modal-details">
+                    <h2 id="unitTitle"></h2>
+                    <div class="unit-specs">
+                        <div class="spec">
+                            <span class="label">Bedrooms:</span>
+                            <span class="value" id="unitBeds"></span>
+                        </div>
+                        <div class="spec">
+                            <span class="label">Bathrooms:</span>
+                            <span class="value" id="unitBaths"></span>
+                        </div>
+                    </div>
+                    <p id="unitDescription" class="unit-description"></p>
+                    <h3>Unit Amenities</h3>
+                    <ul class="amenities-list" id="amenitiesList"></ul>
+                    <button class="btn btn-primary" onclick="scrollToContact()">Inquire About This Unit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Property Modal -->
+    <div id="propertyModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-gallery">
+                    <img id="modalImage" src="" alt="Property">
+                    <div class="gallery-nav">
+                        <button class="gallery-btn prev" onclick="changeModalImage(-1)">❮</button>
+                        <button class="gallery-btn next" onclick="changeModalImage(1)">❯</button>
+                    </div>
+                </div>
+                <div class="modal-details">
+                    <h2 id="modalTitle"></h2>
+                    <div class="property-specs">
+                        <div class="spec">
+                            <span class="label">Property Type:</span>
+                            <span class="value" id="modalType"></span>
+                        </div>
+                        <div class="spec">
+                            <span class="label">Residential Units:</span>
+                            <span class="value" id="modalBeds"></span>
+                        </div>
+                        <div class="spec">
+                            <span class="label">Commercial Units:</span>
+                            <span class="value" id="modalBaths"></span>
+                        </div>
+                        <div class="spec">
+                            <span class="label">Total Units:</span>
+                            <span class="value" id="modalTotal"></span>
+                        </div>
+                    </div>
+                    <p id="modalDescription" class="property-description"></p>
+                    <button class="btn btn-primary" onclick="scrollToContact()">Inquire About Leasing</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Lease Inquiry</h2>
+            <p class="contact-intro">Interested in leasing space at The Albers Building? Contact us to learn more about available residential and commercial units.</p>
+            
+            <div class="contact-wrapper">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="property">Unit Type Interest</label>
+                        <select id="property" name="property">
+                            <option value="">Select unit type</option>
+                            <option value="residential">Residential Unit</option>
+                            <option value="commercial">Commercial Unit</option>
+                            <option value="both">Both Residential & Commercial</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Lease Inquiry</button>
+                    <div id="formStatus" class="form-status"></div>
+                </form>
+
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="info-item">
+                        <h4>Email</h4>
+                        <p><a href="mailto:info@longshotproperty.com">info@longshotproperty.com</a></p>
+                    </div>
+                    <div class="info-item">
+                        <h4>Phone</h4>
+                        <p><a href="tel:+1234567890">+1 (234) 567-890</a></p>
+                    </div>
+                    <div class="info-item">
+                        <h4>Hours</h4>
+                        <p>Monday - Friday: 9:00 AM - 6:00 PM<br>
+                        Saturday: 10:00 AM - 4:00 PM<br>
+                        Sunday: Closed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Longshot Property Development. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
