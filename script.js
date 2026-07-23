@@ -441,6 +441,7 @@ function populatePropertyDropdown() {
 function scrollToContact() {
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
     document.getElementById('propertyModal').style.display = "none";
+    document.getElementById('unitModal').style.display = "none";
 }
 
 // ============================================
