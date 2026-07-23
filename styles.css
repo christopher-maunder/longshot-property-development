@@ -177,6 +177,70 @@ body {
     gap: 2rem;
 }
 
+.portfolio-section {
+    margin-bottom: 3rem;
+}
+
+.portfolio-section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+}
+
+.portfolio-section-header .section-icon {
+    font-size: 2rem;
+}
+
+.portfolio-section-header h3 {
+    margin: 0 0 0.2rem 0;
+    font-size: 1.3rem;
+}
+
+.portfolio-section-header p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.85;
+}
+
+.owned-header {
+    background: linear-gradient(135deg, var(--primary-color), #3d5470);
+    color: white;
+}
+
+.managed-header {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    color: white;
+}
+
+.property-image-wrapper {
+    position: relative;
+}
+
+.ownership-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.ownership-badge.owned {
+    background: var(--primary-color);
+    color: white;
+}
+
+.ownership-badge.managed {
+    background: #27ae60;
+    color: white;
+}
+
 .property-card {
     background: white;
     border-radius: var(--border-radius);

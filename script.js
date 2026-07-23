@@ -17,7 +17,8 @@ const properties = [
             commercial: 2,
             total: 8
         },
-        images: ["Longshot01.jpg", "Longshot02.jpg", "Longshot03.jpg"]
+        images: ["Longshot01.jpg", "Longshot02.jpg", "Longshot03.jpg"],
+        ownership: "owned"
     },
     {
         id: 2,
@@ -33,7 +34,8 @@ const properties = [
             commercial: 0,
             total: 12
         },
-        images: ["Marcellus Flats/MarcellusFlats01.jpg", "Marcellus Flats/MarcellusFlats02.jpg"]
+        images: ["Marcellus Flats/MarcellusFlats01.jpg", "Marcellus Flats/MarcellusFlats02.jpg"],
+        ownership: "managed"
     }
 ];
 
@@ -154,12 +156,18 @@ document.addEventListener('DOMContentLoaded', function() {
 // ============================================
 
 function loadProperties() {
-    const grid = document.getElementById('propertiesGrid');
-    grid.innerHTML = '';
+    const ownedGrid = document.getElementById('ownedPropertiesGrid');
+    const managedGrid = document.getElementById('managedPropertiesGrid');
+    ownedGrid.innerHTML = '';
+    managedGrid.innerHTML = '';
 
     properties.forEach(property => {
         const card = createPropertyCard(property);
-        grid.appendChild(card);
+        if (property.ownership === 'managed') {
+            managedGrid.appendChild(card);
+        } else {
+            ownedGrid.appendChild(card);
+        }
     });
 }
 
@@ -170,8 +178,15 @@ function createPropertyCard(property) {
         ? `<span>🏢 ${property.units.residential} Residential</span><span>🏪 ${property.units.commercial} Commercial</span>`
         : `${property.beds > 0 ? `<span>🛏️ ${property.beds} Beds</span>` : ''}${property.baths > 0 ? `<span>🚿 ${property.baths} Baths</span>` : ''}`;
     
+    const badge = property.ownership === 'managed'
+        ? `<span class="ownership-badge managed">Managed by Longshot</span>`
+        : `<span class="ownership-badge owned">Longshot Owned</span>`;
+
     card.innerHTML = `
-        <img src="${property.images[0]}" alt="${property.title}" class="property-image">
+        <div class="property-image-wrapper">
+            <img src="${property.images[0]}" alt="${property.title}" class="property-image">
+            ${badge}
+        </div>
         <div class="property-info">
             <h3 class="property-title">${property.title}</h3>
             <div class="property-price">${property.price}</div>
