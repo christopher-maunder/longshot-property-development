@@ -35,7 +35,8 @@ const properties = [
             total: 12
         },
         images: ["Marcellus Flats/MarcellusFlats01.jpg", "Marcellus Flats/MarcellusFlats02.jpg"],
-        ownership: "managed"
+        ownership: "managed",
+        websiteUrl: "https://www.marcellusflats.com/"
     }
 ];
 
@@ -174,6 +175,29 @@ function loadProperties() {
 function createPropertyCard(property) {
     const card = document.createElement('div');
     card.className = 'property-card';
+    card.tabIndex = 0;
+    card.setAttribute('role', 'group');
+    card.setAttribute('aria-label', `${property.title}, activate to ${property.websiteUrl ? 'visit website' : 'view details'}`);
+
+    const activateCard = () => {
+        if (property.websiteUrl) {
+            window.open(property.websiteUrl, '_blank', 'noopener,noreferrer');
+        } else {
+            openPropertyModal(property.id);
+        }
+    };
+
+    card.addEventListener('click', event => {
+        if (event.target.closest('a, button')) return;
+        activateCard();
+    });
+
+    card.addEventListener('keydown', event => {
+        if (event.target !== card || (event.key !== 'Enter' && event.key !== ' ')) return;
+        event.preventDefault();
+        activateCard();
+    });
+
     const unitInfo = property.units 
         ? `<span>🏢 ${property.units.residential} Residential</span><span>🏪 ${property.units.commercial} Commercial</span>`
         : `${property.beds > 0 ? `<span>🛏️ ${property.beds} Beds</span>` : ''}${property.baths > 0 ? `<span>🚿 ${property.baths} Baths</span>` : ''}`;
@@ -194,7 +218,9 @@ function createPropertyCard(property) {
                 <span>${property.type}</span>
                 ${unitInfo}
             </div>
-            <button class="view-btn" onclick="openPropertyModal(${property.id})">View Details</button>
+            ${property.websiteUrl
+                ? `<a class="view-btn" href="${property.websiteUrl}" target="_blank" rel="noopener noreferrer">Visit Website</a>`
+                : `<button class="view-btn" onclick="openPropertyModal(${property.id})">View Details</button>`}
         </div>
     `;
     return card;
