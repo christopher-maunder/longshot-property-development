@@ -417,7 +417,7 @@ function openUnitModal(unitId) {
 
 // Inquiries are emailed to longshotpd@gmail.com through Web3Forms (https://web3forms.com).
 // The access key is public by design; it only lets this form send to that inbox.
-const WEB3FORMS_ACCESS_KEY = '';
+const WEB3FORMS_ACCESS_KEY = 'eaa347b1-20b5-4928-8862-d9311bb548ae';
 
 const FORM_FALLBACK_MESSAGE = 'Please email us at longshotpd@gmail.com or call (402) 366-2960.';
 
