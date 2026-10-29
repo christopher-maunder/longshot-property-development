@@ -710,6 +710,10 @@ body {
     box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
 }
 
+.form-honeypot {
+    display: none;
+}
+
 .form-status {
     margin-top: 1rem;
     padding: 1rem;

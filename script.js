@@ -415,16 +415,22 @@ function openUnitModal(unitId) {
 // Contact Form Handling
 // ============================================
 
+// Inquiries are emailed to longshotpd@gmail.com through Web3Forms (https://web3forms.com).
+// The access key is public by design; it only lets this form send to that inbox.
+const WEB3FORMS_ACCESS_KEY = '';
+
+const FORM_FALLBACK_MESSAGE = 'Please email us at longshotpd@gmail.com or call (402) 366-2960.';
+
 function setupContactForm() {
     const form = document.getElementById('contactForm');
     form.addEventListener('submit', handleFormSubmit);
 }
 
-function handleFormSubmit(e) {
+async function handleFormSubmit(e) {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
+    const form = e.target;
+    const data = Object.fromEntries(new FormData(form));
 
     // Basic validation
     if (!data.name || !data.email || !data.message) {
@@ -437,25 +443,49 @@ function handleFormSubmit(e) {
         return;
     }
 
-    // Simulate form submission
-    const submitBtn = e.target.querySelector('button[type="submit"]');
+    if (!WEB3FORMS_ACCESS_KEY) {
+        showFormStatus(`Online inquiries aren't available yet. ${FORM_FALLBACK_MESSAGE}`, 'error');
+        return;
+    }
+
+    const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
     submitBtn.textContent = 'Sending...';
     submitBtn.disabled = true;
 
-    // Here you would normally send the data to a backend service
-    // For now, we'll simulate it with a timeout
-    setTimeout(() => {
-        // Log the form data (in a real app, send to backend)
-        console.log('Form submitted:', data);
+    try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            // Keys become the field labels in the email; "email" is used as the reply-to address
+            body: JSON.stringify({
+                access_key: WEB3FORMS_ACCESS_KEY,
+                subject: `Lease inquiry from ${data.name}`,
+                from_name: 'Longshot website',
+                botcheck: data.botcheck || '',
+                name: data.name,
+                email: data.email,
+                phone: data.phone || 'Not given',
+                'Unit type': data.property || 'Not selected',
+                'Property': data.propertyName || 'Not selected',
+                message: data.message
+            })
+        });
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(result.message || `HTTP ${response.status}`);
+        }
 
         showFormStatus('Thank you! Your lease inquiry has been submitted. We will contact you soon to discuss available units.', 'success');
-
-        // Reset form
-        e.target.reset();
+        form.reset();
+    } catch (err) {
+        console.error('Lease inquiry failed to send:', err);
+        showFormStatus(`Sorry, your inquiry couldn't be sent. ${FORM_FALLBACK_MESSAGE}`, 'error');
+    } finally {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-    }, 1500);
+    }
 }
 
 function showFormStatus(message, type) {
@@ -480,7 +510,7 @@ function populatePropertyDropdown() {
     const select = document.getElementById('propertyName');
     properties.forEach(property => {
         const option = document.createElement('option');
-        option.value = property.id;
+        option.value = property.title;
         option.textContent = property.title;
         select.appendChild(option);
     });
