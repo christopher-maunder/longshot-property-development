@@ -150,7 +150,32 @@ document.addEventListener('DOMContentLoaded', function() {
     setupUnitModalHandlers();
     setupContactForm();
     populatePropertyDropdown();
+    setupThemeToggle();
 });
+
+// ============================================
+// Theme Toggle (dark by default)
+// ============================================
+
+function setupThemeToggle() {
+    const toggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+
+    function updateLabel() {
+        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        toggle.setAttribute('aria-label', `Switch to ${next} mode`);
+        toggle.setAttribute('title', `Switch to ${next} mode`);
+    }
+
+    toggle.addEventListener('click', function() {
+        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+        updateLabel();
+    });
+
+    updateLabel();
+}
 
 // ============================================
 // Load and Display Properties

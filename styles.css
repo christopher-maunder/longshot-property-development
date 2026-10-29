@@ -15,8 +15,27 @@
     --light-gray: #ecf0f1;
     --dark-gray: #34495e;
     --text-color: #2c3e50;
+    --heading-color: #2c3e50;
+    --bg-color: #fff;
+    --surface-color: #fff;
+    --input-bg: #fff;
+    --border-color: #ddd;
     --border-radius: 8px;
     --transition: all 0.3s ease;
+    color-scheme: light;
+}
+
+/* Dark theme (default; set on <html data-theme="dark">) */
+:root[data-theme="dark"] {
+    --light-gray: #18202a;
+    --dark-gray: #a9b4bf;
+    --text-color: #dde3e9;
+    --heading-color: #eef2f5;
+    --bg-color: #11161c;
+    --surface-color: #1f2933;
+    --input-bg: #11161c;
+    --border-color: #364352;
+    color-scheme: dark;
 }
 
 html {
@@ -27,7 +46,8 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
-    background-color: #fff;
+    background-color: var(--bg-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -95,6 +115,47 @@ body {
     border-bottom-color: var(--secondary-color);
     color: var(--secondary-color);
 }
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--secondary-color);
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Show the icon for the theme you'd switch to */
+.theme-toggle .icon-moon { display: none; }
+:root[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+:root[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 
 /* ============================================
    Hero Section
@@ -168,7 +229,7 @@ body {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 3rem;
-    color: var(--primary-color);
+    color: var(--heading-color);
 }
 
 .properties-grid {
@@ -242,7 +303,7 @@ body {
 }
 
 .property-card {
-    background: white;
+    background: var(--surface-color);
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -275,7 +336,7 @@ body {
     font-size: 1.3rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: var(--primary-color);
+    color: var(--heading-color);
 }
 
 .property-price {
@@ -341,7 +402,7 @@ body {
 }
 
 .modal-content {
-    background-color: white;
+    background-color: var(--surface-color);
     margin: 30px auto;
     padding: 0;
     border-radius: var(--border-radius);
@@ -368,7 +429,7 @@ body {
     top: 20px;
     font-size: 2rem;
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--heading-color);
     cursor: pointer;
     z-index: 2001;
 }
@@ -431,7 +492,7 @@ body {
 }
 
 .modal-details h2 {
-    color: var(--primary-color);
+    color: var(--heading-color);
     margin-bottom: 1.5rem;
 }
 
@@ -456,7 +517,7 @@ body {
 }
 
 .spec .value {
-    color: var(--primary-color);
+    color: var(--heading-color);
     font-size: 1.1rem;
 }
 
@@ -474,7 +535,7 @@ body {
 }
 
 .property-units-section h3 {
-    color: var(--primary-color);
+    color: var(--heading-color);
     margin-bottom: 0.5rem;
     font-size: 1.3rem;
 }
@@ -501,7 +562,7 @@ body {
 /* Removed - Units now displayed in property modal */
 
 .unit-card {
-    background: white;
+    background: var(--surface-color);
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -529,7 +590,7 @@ body {
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: var(--primary-color);
+    color: var(--heading-color);
 }
 
 .unit-quick-info {
@@ -585,14 +646,14 @@ body {
 
 .contact {
     padding: 80px 20px;
-    background-color: white;
+    background-color: var(--bg-color);
 }
 
 .contact h2 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
-    color: var(--primary-color);
+    color: var(--heading-color);
 }
 
 .contact-intro {
@@ -624,7 +685,7 @@ body {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
-    color: var(--primary-color);
+    color: var(--heading-color);
 }
 
 .form-group input,
@@ -632,8 +693,10 @@ body {
 .form-group select {
     width: 100%;
     padding: 0.75rem;
-    border: 2px solid #ddd;
+    border: 2px solid var(--border-color);
     border-radius: var(--border-radius);
+    background-color: var(--input-bg);
+    color: var(--text-color);
     font-family: inherit;
     font-size: 1rem;
     transition: var(--transition);
@@ -760,7 +823,43 @@ body {
     }
 }
 
+@media (max-width: 600px) {
+    /* Keep the toggle top-right; nav links drop to their own row */
+    .navbar .container {
+        flex-wrap: wrap;
+        row-gap: 0.75rem;
+    }
+
+    .nav-right {
+        display: contents;
+    }
+
+    .logo {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .theme-toggle {
+        order: 2;
+        margin-left: auto;
+    }
+
+    .nav-menu {
+        order: 3;
+        width: 100%;
+    }
+
+    .nav-menu ul {
+        justify-content: center;
+    }
+}
+
 @media (max-width: 480px) {
+    .theme-toggle {
+        width: 34px;
+        height: 34px;
+    }
+
     .logo img {
         height: 40px;
     }
