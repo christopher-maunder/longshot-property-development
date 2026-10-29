@@ -195,6 +195,8 @@
                         <label for="message">Message</label>
                         <textarea id="message" name="message" rows="5" required></textarea>
                     </div>
+                    <!-- Spam trap: hidden from people, bots that tick it are rejected by Web3Forms -->
+                    <input type="checkbox" name="botcheck" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
                     <button type="submit" class="btn btn-primary">Submit Lease Inquiry</button>
                     <div id="formStatus" class="form-status"></div>
                 </form>
