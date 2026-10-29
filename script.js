@@ -151,6 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupContactForm();
     populatePropertyDropdown();
     setupThemeToggle();
+    document.getElementById('copyrightYear').textContent = new Date().getFullYear();
 });
 
 // ============================================
