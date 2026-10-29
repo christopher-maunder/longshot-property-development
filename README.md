@@ -41,7 +41,7 @@ Longshot Webpage/
 3. **Customize Contact Information**
    - In `index.html`, search for "Contact Information" section
    - Update email, phone, and hours
-   - In `script.js`, update the form handling to send emails to your backend
+   - Form delivery is configured in `script.js`; see [ADMIN.md](ADMIN.md)
 
 ## Customization Guide
 
@@ -182,28 +182,9 @@ The site will be available at: `https://<app-name>.<region>.azurestaticapps.net`
 5. Follow DNS verification steps with your domain provider
 6. Azure will provision an SSL certificate automatically
 
-## Adding Backend Functionality
+## Contact Form Email
 
-Currently, the contact form displays a success message but doesn't send emails. To add real backend:
-
-### Option 1: Azure Functions (Recommended)
-
-1. Create an Azure Function (HTTP trigger) for contact form submission
-2. Update the `handleFormSubmit()` function in `script.js`:
-
-```javascript
-const response = await fetch('/.netlify/functions/contact', {
-    method: 'POST',
-    body: JSON.stringify(data)
-});
-```
-
-### Option 2: Third-Party Service
-
-Use services like:
-- **Formspree** - Form handling as a service
-- **EmailJS** - Send emails directly from JavaScript
-- **Firebase** - Backend-as-a-service
+The lease inquiry form sends through [Web3Forms](https://web3forms.com), which emails each inquiry. See [ADMIN.md](ADMIN.md) for the account, where inquiries are delivered and how to change it.
 
 ## Performance Optimization
 
